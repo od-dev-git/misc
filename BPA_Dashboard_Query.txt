@@ -1,0 +1,37 @@
+select tenantid, applicationno,businessservice,to_timestamp(createdtime/1000)::date as createdtime,to_timestamp(applicationdate/1000)::date as applicationdate,status,approvalno,case when approvaldate >0 then to_timestamp(approvaldate/1000)::date end as approvaldate from eg_bpa_buildingplan;
+
+
+select
+	tenantid,
+	applicationno,
+	businessservice,
+	to_timestamp(createdtime / 1000)::date as createdtime,
+	case
+		when applicationdate >0 then to_timestamp(applicationdate / 1000)::date
+	end as applicationdate,
+	status,
+	approvalno,
+	case
+		when approvaldate >0 then to_timestamp(approvaldate / 1000)::date
+	end as approvaldate
+from
+	eg_bpa_buildingplan;
+
+-------------------------------------------------------------------------------------------------------------
+select
+	tenantid,
+	applicationno,
+	businessservice,
+	case
+		when createdtime >0 then to_timestamp(createdtime / 1000)::date 
+	end as createdtime,
+	case
+		when applicationdate >0 then to_timestamp(applicationdate / 1000)::date
+	end as applicationdate,
+	status,
+	approvalno,
+	case
+		when approvaldate >0 then to_timestamp(approvaldate / 1000)::date
+	end as approvaldate
+from
+	eg_bpa_buildingplan;
