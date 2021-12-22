@@ -1,0 +1,9 @@
+egov.demand.tenants=ALL
+
+egov.demand.tenants.skip=od.bijepur,od.odagaon,od.dhamnagar,od.nilgiri,od.belpahar,od.chandbali,od.pipli,od.hindol,od.tusura,od.dharamgarh,od.gudari,od.nuapada,od.balimela,od.konark,od.brajrajnagar,od.gopalpur,od.tarbha,od.kesinga,od.malkangiri,od.khandapada,od.umerkote,od.khallikote,od.balliguda,od.udala,od.basudevpur,od.daspalla,od.champua,od.padampur,od.chikiti,od.kamakhyanagar,od.karanjia,od.athmallik,od.banki,od.kotpad,od.junagarh,od.soro,od.rambha,od.birmitrapur,od.ganjam,od.kuchinda,od.bellaguntha,od.banpur,od.attabira,od.athagarh,od.balugaon,od.barbil,od.aska,od.barpali,od.angul,od.anandapur,od.bargarh,od.balangir,od.balasore,od.baripada,od.puri,od.berhampur,od.rourkela,od.cuttack,od.sambalpur,od.bhubaneswar
+
+egov.demand.manualstartenddate.enabled=true
+
+egov.demand.manualmonthnumber=11
+
+egov.demand.manualyear=2021
