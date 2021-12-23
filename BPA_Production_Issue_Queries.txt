@@ -1,0 +1,30 @@
+BPA Production Issue Queries
+===================================
+-- Application status
+select * from eg_bpa_buildingplan ebb where applicationno ='BP-RRK-2021-12-15-000197';
+
+
+-- Workflow status
+select * from eg_wf_processinstance_v2 ewpv where businessid ='BP-RRK-2021-12-15-000197';
+
+-- Bill details
+select * from egbs_billdetail_v1 ebv where consumercode ='BP-RRK-2021-12-15-000197';
+
+-- Payment status
+select * from egcl_payment ep where id in (select paymentid from egcl_paymentdetail ep where receiptnumber ='09/2021-22/000089') ;
+select * from egcl_paymentdetail ep where receiptnumber ='12/2021-22/005397';
+
+---NOC Query---
+select * from public.eg_noc en where sourcerefid ='BPA APPlication id'
+delete from public.eg_noc where sourcerefid ='BPA APPlication id'
+
+-- Application status
+select applicationno, status, lastmodifiedtime, businessservice from eg_bpa_buildingplan ebb where applicationno ='BP-RRK-2021-12-15-000197';
+
+-- Workflow status
+select businessservice , businessid, "action" from eg_wf_processinstance_v2 ewpv where businessid ='BP-RRK-2021-12-15-000197';
+
+--Demand
+select consumercode, businessservice, ispaymentcompleted from egbs_demand_v1 edv where consumercode ='BP-RRK-2021-12-15-000197';
+select demandid, taxheadcode, taxamount, collectionamount from egbs_demanddetail_v1 edv where demandid in (select id from egbs_demand_v1 edv where consumercode ='BP-RRK-2021-12-15-000197');
+
