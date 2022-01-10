@@ -2,3 +2,8 @@
 16bfa0fc-c9a1-4b77-af2c-9447093fe60f
 6c59648f-6294-4d48-9dad-286533046413
 3163c439-7dee-42a4-a580-f868e4d47851
+
+-- Insert the workflow
+-- Assigner keep same as previous
+INSERT INTO eg_wf_processinstance_v2 (id,tenantid,businessservice,businessid,"action",status,"comment",assigner,assignee,statesla,previousstatus,createdby,lastmodifiedby,createdtime,lastmodifiedtime,modulename,businessservicesla,rating) values
+('aa8f62fb-ecc1-42f8-a5ff-d9008803a4c0','od.rourkela','BPA1','BP-RRK-2021-12-09-000189','PAY','373b81d4-cc81-4400-8d4b-5d32dd722bef',NULL,'cbf66c9d-c8c3-4ba3-b77d-791ceadae440',NULL,NULL,NULL,'cbf66c9d-c8c3-4ba3-b77d-791ceadae440','cbf66c9d-c8c3-4ba3-b77d-791ceadae440',1641020562000,1641020562000,'bpa-services',5181630506,NULL);
