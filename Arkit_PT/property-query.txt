@@ -1,0 +1,200 @@
+
+--===========================================
+-- Collection amount ULB wise
+-- Property: PT
+--===========================================
+select tenantid, sum(amountpaid) as paidAmt,
+case
+  when businessservice='PT' then 'Property Tax'
+  when businessservice='PT.MUTATION' then 'Property Mutation' end as feeType
+from egcl_paymentdetail ep
+where businessservice in ('PT','PT.MUTATION')
+and to_timestamp(receiptdate/1000)::date >= '2021-11-01'
+-- and to_timestamp(receiptdate/1000)::date <= '2022-01-12'
+group by tenantid,businessservice order by businessservice,tenantid;
+
+*******************with ward********************************
+select initcap(split_part(ep.tenantid,'.',2)) as ulb, sum(amountpaid) as paidAmt,ward,
+case
+  when ep.businessservice='PT' then 'Property Tax'
+  when ep.businessservice='PT.MUTATION' then 'Property Mutation' end as feeType
+from egcl_paymentdetail ep
+join egcl_bill eb on eb.id = ep.billid 
+join eg_pt_property epp on epp.propertyid = eb.consumercode 
+join eg_pt_address epa on epa.propertyid = epp.id 
+where ep.businessservice in ('PT','PT.MUTATION')
+and to_timestamp(receiptdate/1000)::date >= '2021-11-01'
+-- and to_timestamp(receiptdate/1000)::date <= '2022-01-12'
+group by ep.tenantid,billid,ep.businessservice,ward order by ep.businessservice,ep.tenantid;
+
+
+
+--======================================================================
+-- Collection Report
+--======================================================================
+select
+initcap(split_part(tenantid,'.',2)) as ulb
+, to_timestamp(receiptdate/1000)::date as receiptdate
+, receiptnumber
+, to_timestamp(createdtime/1000)::date as createdtime
+, amountpaid
+, case
+  when businessservice='PT' then 'Property Tax'
+  when businessservice='PT.MUTATION' then 'Property Mutation'
+end as feeType
+from egcl_paymentdetail ep
+where businessservice in ('PT','PT.MUTATION');
+
+
+*******************with ward********************************
+select
+initcap(split_part(ep.tenantid,'.',2)) as ulb,ward
+, to_timestamp(ep.receiptdate/1000)::date as receiptdate
+, receiptnumber
+, to_timestamp(ep.createdtime/1000)::date as createdtime
+, amountpaid
+, case
+  when ep.businessservice='PT' then 'Property Tax'
+  when ep.businessservice='PT.MUTATION' then 'Property Mutation'
+end as feeType
+from egcl_paymentdetail ep
+join egcl_bill eb on eb.id = ep.billid 
+join eg_pt_property epp on epp.propertyid = eb.consumercode 
+join eg_pt_address epa on epa.propertyid = epp.id 
+where ep.businessservice in ('PT','PT.MUTATION');
+
+--======================================================================
+--  ulb wise application count
+--======================================================================
+---property details
+
+select initcap(split_part(tenantid,'.',2)) as ulb, count(*) from eg_pt_property
+where status not in ('INACTIVE')
+and to_timestamp(createdtime/1000)::date > '2021-11-01'
+and oldpropertyid is null
+GROUP BY tenantid
+order by ulb;
+
+
+*******************with ward********************************
+select initcap(split_part(epp.tenantid,'.',2)) as ulb,ward, count(*) 
+from eg_pt_property epp 
+join eg_pt_address epa on epa.propertyid = epp.id 
+where status not in ('INACTIVE')
+and to_timestamp(epp.createdtime/1000)::date > '2021-11-01'
+and epp.oldpropertyid is null
+GROUP BY epp.tenantid,ward
+order by ulb;
+
+
+---assessment details
+
+select initcap(split_part(tenantid,'.',2)) as ulb, count(*) 
+from eg_pt_asmt_assessment
+where status not in ('INACTIVE')
+and to_timestamp(createdtime/1000)::date > '2021-11-01'
+GROUP BY tenantid
+order by ulb;
+
+
+*******************with ward********************************
+select initcap(split_part(epaa.tenantid,'.',2)) as ulb,ward, count(*) 
+from eg_pt_asmt_assessment epaa
+join eg_pt_property epp on epaa.propertyid  = epp.propertyid 
+join eg_pt_address epa on epa.propertyid = epp.id 
+where epaa.status not in ('INACTIVE')
+and to_timestamp(epaa.createdtime/1000)::date > '2021-11-01'
+GROUP BY epaa.tenantid,ward
+order by ulb;
+
+
+--======================================================================
+--  All application details
+--======================================================================
+---property details
+
+select 
+initcap(split_part(tenantid,'.',2)) as ulb,
+propertyid ,
+oldpropertyid ,
+acknowldgementnumber,
+case
+  when propertytype='BUILTUP.SHAREDPROPERTY' then 'Shared Property'
+  when propertytype='VACANT' then 'Vacant Land'
+  when propertytype='BUILTUP.INDEPENDENTPROPERTY' then 'Independent Property'
+end as propertytype,
+case
+  when usagecategory='NONRESIDENTIAL.COMMERCIAL' then 'Non Residentials Commercial'
+  when usagecategory='MIXED' then 'Mixed'
+  when usagecategory='RESIDENTIAL' then 'Independent Property'
+  when usagecategory='NONRESIDENTIAL.INSTITUTIONAL' then 'Non Residentials Institutional'
+  when usagecategory='NONRESIDENTIAL.INDUSTRIAL' then 'Non Residentials Industrial'
+  when usagecategory='NONRESIDENTIAL.OTHERS' then 'Non Residentials Others'
+  when usagecategory='RESIDENTIAL' then 'Independent Property'
+end as usagecategory,
+creationreason,
+status,
+to_timestamp(createdtime/1000)::date as createdtime
+from eg_pt_property
+where to_timestamp(createdtime/1000)::date > '2021-11-01'
+and oldpropertyid is null
+order by createdtime;
+
+
+*******************with ward********************************
+select 
+initcap(split_part(epp.tenantid,'.',2)) as ulb,
+ward,
+epp.propertyid ,
+epp.oldpropertyid ,
+epp.acknowldgementnumber,
+case
+  when propertytype='BUILTUP.SHAREDPROPERTY' then 'Shared Property'
+  when propertytype='VACANT' then 'Vacant Land'
+  when propertytype='BUILTUP.INDEPENDENTPROPERTY' then 'Independent Property'
+end as propertytype,
+case
+  when usagecategory='NONRESIDENTIAL.COMMERCIAL' then 'Non Residentials Commercial'
+  when usagecategory='MIXED' then 'Mixed'
+  when usagecategory='RESIDENTIAL' then 'Independent Property'
+  when usagecategory='NONRESIDENTIAL.INSTITUTIONAL' then 'Non Residentials Institutional'
+  when usagecategory='NONRESIDENTIAL.INDUSTRIAL' then 'Non Residentials Industrial'
+  when usagecategory='NONRESIDENTIAL.OTHERS' then 'Non Residentials Others'
+  when usagecategory='RESIDENTIAL' then 'Independent Property'
+end as usagecategory,
+epp.creationreason,
+epp.status,
+to_timestamp(epp.createdtime/1000)::date as createdtime
+from eg_pt_property epp
+join eg_pt_address epa on epa.propertyid = epp.id 
+where to_timestamp(epp.createdtime/1000)::date > '2021-11-01'
+and epp.oldpropertyid is null
+order by epp.createdtime;
+
+---assessment details
+
+select 
+initcap(split_part(tenantid,'.',2)) as ulb,
+assessmentnumber,
+to_timestamp(assessmentdate/1000)::date as assessmentdate,
+to_timestamp(createdtime/1000)::date as createdtime,
+financialyear,
+status
+from eg_pt_asmt_assessment
+where to_timestamp(createdtime/1000)::date > '2021-11-01'
+order by createdtime;
+
+*******************with ward********************************
+
+select 
+initcap(split_part(epaa.tenantid,'.',2)) as ulb,ward,
+epaa.assessmentnumber,
+to_timestamp(epaa.assessmentdate/1000)::date as assessmentdate,
+to_timestamp(epaa.createdtime/1000)::date as createdtime,
+epaa.financialyear,
+epaa.status
+from eg_pt_asmt_assessment epaa
+join eg_pt_property epp on epaa.propertyid  = epp.propertyid 
+join eg_pt_address epa on epa.propertyid = epp.id
+where to_timestamp(epaa.createdtime/1000)::date > '2021-11-01'
+order by epaa.createdtime;
