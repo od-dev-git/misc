@@ -1,7 +1,7 @@
 
 -- WS_AP/HNL/2021-22/2171217
--- Update application status
-update eg_ws_connection set applicationstatus='PENDING_FOR_PAYMENT' where applicationno='WS_AP/HNL/2021-22/2171217';
+-- Back to approver because application fee demand not generated.
+delete from eg_wf_processinstance_v2 where id='d2969918-5f01-4a04-9bd1-e6efb05efaa1';
 
 -----
 -- WS_AP/HNL/2021-22/2171225
