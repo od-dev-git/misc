@@ -1,0 +1,8 @@
+update egbs_billdetail_v1 set expirydate='1643673599000' where billid in (select id from egbs_bill_v1 where status='ACTIVE') and consumercode='WS/BMC/1454343';
+
+update eg_pg_transactions
+set bill_id=(select distinct billid from egbs_billdetail_v1 where billid in (select id from egbs_bill_v1 where status='ACTIVE')
+and consumercode='WS/BMC/1454343')
+set created_time=(select FLOOR(EXTRACT(epoch from now())*1000)-900000)
+where txn_id='PG_BMC_2022_01_16_002516_11';
+-----------------------------
