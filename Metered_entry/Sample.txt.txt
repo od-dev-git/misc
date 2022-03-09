@@ -1,0 +1,3 @@
+INSERT INTO public.eg_ws_meterreading
+(id, connectionno, billingperiod, meterstatus, lastreading, lastreadingdate, currentreading, currentreadingdate, consumption, createdby, lastmodifiedby, createdtime, lastmodifiedtime, tenantid)
+VALUES('', '', '', '', 0, 0, 0, 0, 0, '', '', 0, 0, '');
