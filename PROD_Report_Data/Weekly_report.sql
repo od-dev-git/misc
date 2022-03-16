@@ -19,21 +19,23 @@ from
 	
 -- Collection Report
 select
-	initcap(split_part(tenantid,'.',2)) as ulb
-	, to_timestamp(receiptdate/1000)::date as receiptdate
-	, receiptnumber
-	, to_timestamp(createdtime/1000)::date as createdtime
-	, amountpaid
+	initcap(split_part(epd.tenantid,'.',2)) as ulb
+	, to_timestamp(epd.receiptdate/1000)::date as receiptdate
+	, epd.receiptnumber
+	, to_timestamp(epd.createdtime/1000)::date as createdtime
+	, epd.amountpaid
+	, ep.paymentmode
 	, case
-	   when businessservice='WS.ONE_TIME_FEE' then 'WS Application Fee'
-	   when businessservice='WS' then 'WS Monthly Fee'
-	   when businessservice='BPA.NC_SAN_FEE' then 'BPA Sanction Fee'
-	   when businessservice='BPA.NC_APP_FEE' then 'BPA Application Fee'
-	   when businessservice='PT.MUTATION' then 'PT Mutation Fee'
-	   when businessservice='PT' then 'Property Tax'
+	   when epd.businessservice='WS.ONE_TIME_FEE' then 'WS Application Fee'
+	   when epd.businessservice='WS' then 'WS Monthly Fee'
+	   when epd.businessservice='BPA.NC_SAN_FEE' then 'BPA Sanction Fee'
+	   when epd.businessservice='BPA.NC_APP_FEE' then 'BPA Application Fee'
+	   when epd.businessservice='PT.MUTATION' then 'PT Mutation Fee'
+	   when epd.businessservice='PT' then 'Property Tax'
 	 end as feeType
-from egcl_paymentdetail ep
-where businessservice in ('WS', 'WS.ONE_TIME_FEE', 'BPA.NC_SAN_FEE','BPA.NC_APP_FEE', 'PT.MUTATION', 'PT');
+from egcl_paymentdetail epd
+inner join egcl_payment ep on ep.id = epd.paymentid
+where epd.businessservice in ('WS', 'WS.ONE_TIME_FEE', 'BPA.NC_SAN_FEE','BPA.NC_APP_FEE', 'PT.MUTATION', 'PT');
 
 -- WNS application Report
 -- For other than new Connection on all connection
