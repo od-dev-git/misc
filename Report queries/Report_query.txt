@@ -1,0 +1,35 @@
+-- Skipped connection for monthly bill generation
+SELECT conn.tenantid,
+conn.connectionno 
+FROM eg_ws_connection conn 
+inner join eg_ws_service wc ON wc.connection_id = conn.id
+where 
+	conn.tenantid = 'od.bhubaneswar'
+	and conn.applicationstatus = 'CONNECTION_ACTIVATED'
+	and conn.isoldapplication = false
+	and conn.connectionno is not null
+	and wc.connectiontype = 'Non Metered'
+	and date(to_timestamp(wc.connectionexecutiondate/1000)) <= (date_trunc('month', '2022-01-05'::date) + interval '1 month' - interval '1 day')::date
+--	and date(to_timestamp(wc.connectionexecutiondate/1000)) <= (date_trunc('month', date(to_timestamp($fromDate/1000))) + interval '1 month' - interval '1 day')::date
+	and conn.connectionno NOT IN (select distinct(consumercode) from egbs_demand_v1 dmd where 
+	to_char(to_timestamp(taxperiodfrom/1000), 'YYYY-MM') = '2022-01' -- to_char(date(to_timestamp($fromDate/1000)), 'YYYY-MM')
+	and businessservice = 'WS'
+	and tenantid='od.bhubaneswar'
+	);
+
+-- Monthly Demand history for a consumer
+select 
+	d.consumercode,
+	date(to_timestamp(d.taxperiodfrom/1000)) as periodfrom,
+	date(to_timestamp(d.taxperiodto /1000)) as periodto,
+	d.ispaymentcompleted,
+	sum(dd.taxamount) as totalTax,
+	sum(dd.collectionamount) as totalCollected
+from egbs_demand_v1 d
+inner join egbs_demanddetail_v1 dd on d.id = dd.demandid
+where d.businessservice ='WS' and d.consumercode ='WS/BMC/023790'
+group by d.consumercode,
+	d.taxperiodfrom,
+	d.taxperiodto,
+	d.ispaymentcompleted
+order by taxperiodto ;
