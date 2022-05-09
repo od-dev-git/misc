@@ -1,0 +1,24 @@
+Then below will need to be executed.
+1. kubectl get pods -n egov | grep <edcr>
+above command will show you podId based on search keyword
+2. kubectl logs -f <podID> -n egov   
+3. kubectl --context od-dev describe pod inbox-7ffb6bdc94-zsz95 -n egov
+
+Describe a pod
+---------------
+kubectl --context od-dev describe pod fsm-57db48f9c-p9kkm -n egov
+
+Kafka cluster
+-------------
+kubectl get pods -n kafka-cluster | grep kafka
+
+Kafka cluster lag check
+------------------------
+1. kubectl exec -it kafka-v2-0 -n kafka-cluster bash 
+2. kafka-consumer-groups --bootstrap-server  kafka-v2.kafka-cluster:9092 --group egov-infra-persist  -describe
+if there is lag then -> 
+3. kafka-consumer-groups --bootstrap-server kafka-v2.kafka-cluster:9092 --group egov-infra-persist --reset-offsets --to-earliest --topic save-fsm-application-1 -execute
+
+Delete and restart a service
+-----------------------------
+kubectl delete pod <fsm-pod> --namespace=egov
