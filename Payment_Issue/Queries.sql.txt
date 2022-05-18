@@ -1,0 +1,8 @@
+select * from eg_pg_transactions ept where txn_id in (
+select txn_id from
+(select txn_id, row_number() over(partition by consumer_code order by created_time desc) as row_num from eg_pg_transactions ept where txn_id in (
+select txn_id from eg_pg_transactions ept
+where 
+--consumer_code in ('BP-CTC-2021-08-03-000578')
+txn_status='FAILURE' and gateway_status_code='Awaited')) trxn
+where trxn.row_num<2);
