@@ -1,0 +1,14 @@
+[
+ {
+  "locale": "en_IN",
+  "code": "ERR_FILL_GUARDIAN_DETAIL_MANDATORY_FIELDS",
+  "message": "Please fill all mandatory fields for Guardian Details, then do next!",
+  "module": "rainmaker-mr"
+ },
+ {
+  "locale": "en_IN",
+  "code": "ERR_FILL_WITNESS_DETAIL_MANDATORY_FIELDS",
+  "message": "Please fill all mandatory fields for Witness Details, then do next!",
+  "module": "rainmaker-mr"
+ }
+]
