@@ -1,0 +1,87 @@
+[
+ {
+  "locale": "en_IN",
+  "code": "WF_EMPLOYEE_TLCORRECTION_EXPIRE",
+  "message": "EXPIRE",
+  "module": "rainmaker-tl"
+ },
+ {
+  "locale": "en_IN",
+  "code": "WF_EMPLOYEE_TLCORRECTION_CANCEL",
+  "message": "CANCEL",
+  "module": "rainmaker-tl"
+ },
+ null,
+ {
+  "locale": "en_IN",
+  "code": "WF_TL_CORRECTION_BUTTON",
+  "message": "CORRECTION",
+  "module": "rainmaker-tl"
+ },
+ {
+  "locale": "en_IN",
+  "code": "WF_TLCORRECTION_APPROVED",
+  "message": "APPROVED",
+  "module": "rainmaker-tl"
+ },
+ {
+  "locale": "en_IN",
+  "code": "WF_EXPIRE_APPLICATION",
+  "message": "EXPIRE APPLICATION",
+  "module": "rainmaker-tl"
+ },
+ {
+  "locale": "en_IN",
+  "code": "WF_TLCORRECTION_EXPIRE",
+  "message": "EXPIRE",
+  "module": "rainmaker-tl"
+ },
+ {
+  "locale": "en_IN",
+  "code": "WF_CANCEL_APPLICATION",
+  "message": "CANCEL APPLICATION",
+  "module": "rainmaker-tl"
+ },
+ {
+  "locale": "en_IN",
+  "code": "WF_TLCORRECTION_CANCEL",
+  "message": "CANCEL",
+  "module": "rainmaker-tl"
+ },
+ {
+  "locale": "en_IN",
+  "code": "TL_COMMON_CORRECTION_LICENSE_YEAR",
+  "message": "Apply for Correction Trade License",
+  "module": "rainmaker-tl"
+ },
+ {
+  "locale": "en_IN",
+  "code": "TL_TYPE_CORRECTION",
+  "message": "CORRECTION",
+  "module": "rainmaker-tl"
+ },
+ {
+  "locale": "en_IN",
+  "code": "WF_TLCORRECTION_BACKFROMDOCVERIFICATION",
+  "message": "BACK FROM DOCVERIFICATION",
+  "module": "rainmaker-tl"
+ },
+ {
+  "locale": "en_IN",
+  "code": "TL_CORRECTION_APPLICATION_LICENSE_HDR",
+  "message": "Application for New Trade License Correction",
+  "module": "rainmaker-tl"
+ },
+ {
+  "locale": "en_IN",
+  "code": "WF_EMPLOYEE_TLCORRECTION_APPROVE",
+  "message": "APPROVE",
+  "module": "rainmaker-tl"
+ },
+ {
+  "locale": "en_IN",
+  "code": "WF_TLCORRECTION_APPROVE",
+  "message": "APPROVE",
+  "module": "rainmaker-tl"
+ }
+]
