@@ -1,0 +1,14 @@
+[
+ {
+  "locale": "en_IN",
+  "code": "ACTION_TEST_TL_APPLICATION_USER_DETAILS",
+  "message": "TL Application User Details Report",
+  "module": "rainmaker-common"
+ },
+ {
+  "locale": "en_IN",
+  "code": "ACTION_TEST_BPA_APPLICATION_USER_DETAILS",
+  "message": "BPA Application User Details Report",
+  "module": "rainmaker-common"
+ }
+]
