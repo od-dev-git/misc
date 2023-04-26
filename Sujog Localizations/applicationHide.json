@@ -1,0 +1,26 @@
+[{
+	"locale": "en_IN",
+	"code": "BPA_HIDE_CONFIRM_CHANGE_HEADER",
+	"message": "Application Delete Confirmation",
+	"module": "rainmaker-bpa"
+}, {
+	"locale": "en_IN",
+	"code": "BPA_APPLICATION_HIDE",
+	"message": "Delete Application",
+	"module": "rainmaker-bpa"
+}, {
+	"locale": "en_IN",
+	"code": "BPA_HIDE_CONFIRM_CHANGE_SUB_HEADER",
+	"message": "Are you sure, You want to delete this Application?",
+	"module": "rainmaker-bpa"
+}, {
+	"locale": "en_IN",
+	"code": "BPA_HIDE_CANCEL_BUTTON",
+	"message": "Cancel",
+	"module": "rainmaker-bpa"
+}, {
+	"locale": "en_IN",
+	"code": "BPA_HIDE_OK_BUTTON",
+	"message": "OK",
+	"module": "rainmaker-bpa"
+}]
