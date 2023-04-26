@@ -1,0 +1,14 @@
+[
+ {
+  "locale": "en_IN",
+  "code": "ACTION_TEST_PT_RECEIPT_CANCELLATION_REPORT",
+  "message": "PT Receipt Cancellation Report",
+  "module": "rainmaker-common"
+ },
+{
+  "locale": "en_IN",
+  "code": "ACTION_TEST_WS_RECEIPT_CANCELLATION_REPORT",
+  "message": "WS Receipt Cancellation Report",
+  "module": "rainmaker-common"
+ }
+]
